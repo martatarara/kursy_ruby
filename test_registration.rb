@@ -60,11 +60,11 @@ class TestRegistration < Test::Unit::TestCase
     add_user_to_project
 
     expected_role = "Developer"
-    actual_role = @driver.find_element(:xpath, "//tbody/tr[2]/td[@class='roles']/span").text
+    actual_role = @driver.find_element(:css, ".even span").text
     assert_equal(expected_role, actual_role)
 
     expected_name = 'vlbvwk vlbvwk'
-    actual_name = @driver.find_element(:xpath, "//tbody/tr[2]/td[@class='name user']/a").text
+    actual_name = @driver.find_element(:css, ".even .name .user").text
     assert_equal(expected_name, actual_name)
   end
 
@@ -73,7 +73,7 @@ class TestRegistration < Test::Unit::TestCase
     edit_user_roles
 
     expected_role = "Manager, Developer, Reporter"
-    actual_role = @driver.find_element(:xpath, "//tbody/tr[2]/td[@class='roles']/span").text
+    actual_role = @driver.find_element(:css, ".even span").text
     assert_equal(expected_role, actual_role)
   end
 
@@ -87,7 +87,7 @@ class TestRegistration < Test::Unit::TestCase
     assert_equal(expected_text, actual_text)
 
     expected_name = @version_name
-    actual_name = @driver.find_element(:xpath, ".//*[@class='version odd open ']/td/a").text
+    actual_name = @driver.find_element(:css, "#tab-content-versions .name>a").text
     assert_equal(expected_name, actual_name)
   end
 
@@ -110,18 +110,18 @@ class TestRegistration < Test::Unit::TestCase
     actual_text = @driver.find_element(:id, 'flash_notice').text
     assert_include(actual_text, expected_text)
 
-    @driver.find_element(:xpath, "//a[@class='issues selected']").click
+    @driver.find_element(:css, ".issues.selected").click
 
     expected_text = 'Bug'
-    actual_text = @driver.find_element(:xpath, "//tbody/tr[3]/td[@class='tracker']").text
+    actual_text = @driver.find_element(:css, ".tracker-1 .tracker").text
     assert_include(actual_text, expected_text)
 
     expected_text = 'Feature'
-    actual_text = @driver.find_element(:xpath, "//tbody/tr[2]/td[@class='tracker']").text
+    actual_text = @driver.find_element(:css, ".tracker-2 .tracker").text
     assert_include(actual_text, expected_text)
 
     expected_text = 'Support'
-    actual_text = @driver.find_element(:xpath, "//tbody/tr[1]/td[@class='tracker']").text
+    actual_text = @driver.find_element(:css, ".tracker-3 .tracker").text
     assert_include(actual_text, expected_text)
 
   end
