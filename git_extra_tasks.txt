@@ -1,0 +1,16 @@
+1) What is 'git stash' and how to use it?
+Use git stash when you want to record the current state of the working directory and the index, but want to go back to a clean working directory. The command saves your local modifications away and reverts the working directory to match the HEAD commit.
+
+2) What is 'git reset' and when we shouldn't use it?
+Reset current HEAD to the specified state. It can be used to remove committed snapshots, although it’s more often used to undo changes in the staging area and the working directory. In either case, it should only be used to undo local changes—you should never reset snapshots that have been shared with other developers.
+If git revert is a “safe” way to undo changes, you can think of git reset as the dangerous method. When you undo with git reset(and the commits are no longer referenced by any ref or the reflog), there is no way to retrieve the original copy—it is a permanent undo. Care must be taken when using this tool, as it’s one of the only Git commands that has the potential to lose your work.
+
+3) When we need cherry-pick, and how does it happens?
+Apply the changes introduced by some existing commits, merge only specific commits from another branch into the current one. 
+First of all, use git log or the awesome GitX tool to see exactly which commit you want to pick.
+git checkout master
+git cherry-pick 62ecb3 (id for commit)
+
+4) What does do 'git rm ..' command and what not?
+Remove files from the working tree and from the index
+Remove files from the index, or from the working tree and the index. git rm will not remove a file from just your working directory. (There is no option to remove a file only from the working tree and yet keep it in the index; use /bin/rm if you want to do that.)
