@@ -99,3 +99,21 @@ def add_first_element_to_each(ary)
 end
 
 add_first_element_to_each([1, -4, 3, 7, -90, 42, 78, 1, 22, 6, 7, 2452, 156])
+
+def modify_hash(hashy)
+  puts hashy.map { |key, value| [key.to_sym, value.to_i == 0 ? nil : value.to_i] }.to_h
+end
+
+modify_hash({'first_key' => "59", 'second_key' => 'second_value', 'third_key' => 'third_value'})
+
+def remove_pairs_started_with_s(hashy)
+  puts hashy.delete_if { |key| key.to_s.start_with?('s')}
+end
+
+remove_pairs_started_with_s({:first_key => 9, :second_key => 4648, :third_key => 1})
+
+def remove_pairs_without_natural_number(hashy)
+  puts hashy.delete_if { |key, value| value < 0 || value.integer? == false}
+end
+
+remove_pairs_without_natural_number({:first_key => -9, :second_key => 46.48, :third_key => 1, :fourth_key => 1494})
