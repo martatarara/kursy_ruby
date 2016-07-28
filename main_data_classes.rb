@@ -21,47 +21,21 @@ max_digit('vnrhp389hjnbt34tg4hgnb234485779nwkn')
 def number_of_first_matching_chars(string1, string2)
   a = string1.chars
   b = string2.chars
-
   c = []
   c << a.length << b.length
-  puts num = c.min
+  num = c.min
 
   res = []
-  i = 0
-  while i < num
-    res << (a[i].eql? b[i])
-    i+=1
-  end
-
-  puts res
-
-  index = 0
-  count = 0
-  while res[index].eql? true
-    count += 1
-    index +=1
-  end
-
-  puts count
-
+  num.times {|i| res << (a[i].eql? b[i])}
+  puts (res.take_while {|i| (i == true)}).length
 end
 
-number_of_first_matching_chars('veriwbg948tk5ng', 'veriwnv8rbg948tkknjk5ng')
+number_of_first_matching_chars('veriwbg848tk5ng', 'veriwng8rbg948tkknjk5ng')
 
 def put_even_then_odd_indexes(integer_array)
-  num = integer_array.length
   even_indexes = []
   odd_indexes = []
-  i = 0
-  while i < num
-    even_indexes << integer_array[i]
-    i += 2
-  end
-  index = 1
-  while index < num
-    odd_indexes << integer_array[index]
-    index += 2
-  end
+  integer_array.each_index {|i| i.odd? ? odd_indexes << integer_array[i] : even_indexes << integer_array[i]}
 
   new_array = even_indexes.concat odd_indexes
   puts new_array
@@ -70,35 +44,17 @@ end
 put_even_then_odd_indexes([1, 4, 3, 7, 90, 42, 1, 2, 6, 7, 2452, 56])
 
 def put_index_of_last_element(ary)
-  num = ary.length
-  matching_elements = []
-  i = 1
-  while i < num
-    if ary[0] < ary[i] && ary[i] < ary[-1]
-      matching_elements << ary[i]
-    else
-      nil
-    end
-    i+=1
-  end
-  puts ary.rindex(matching_elements.last)
+  puts ary.rindex((ary.select {|i| (ary[0] < i) && (i < ary[-1])}).last)
 end
 
 put_index_of_last_element([1, -4, 3, 7, -90, 42, 78, 1, 22, 6, 7, 2452, 156])
 
 def add_first_element_to_each(ary)
-  even_elements = ary.each.select{|i| i.even?}
-  num = even_elements.length
-  new_ary = []
-  i = 0
-  while i < (num - 1)
-    new_ary << even_elements[i] + ary[0]
-    i += 1
-  end
-  puts new_ary
+  ary[1..-2].map {|i| i.even? ? (i + ary[0]) : i }
+  puts ary
 end
 
-add_first_element_to_each([1, -4, 3, 7, -90, 42, 78, 1, 22, 6, 7, 2452, 156])
+add_first_element_to_each([100, -4, 3, 7, -90, 42, 78, 1, 22, 6, 7, 2452, 156])
 
 def modify_hash(hashy)
   puts hashy.map { |key, value| [key.to_sym, value.to_i == 0 ? nil : value.to_i] }.to_h
