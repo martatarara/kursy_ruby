@@ -50,17 +50,29 @@ end
 put_index_of_last_element([1, -4, 3, 7, -90, 42, 78, 1, 22, 6, 7, 2452, 156])
 
 def add_first_element_to_each(ary)
-  ary[1..-2].map {|i| i.even? ? (i + ary[0]) : i }
-  puts ary
+  changed_part = []
+  changed_part << ary[1..-2].each.map {|i| i.even? ? (i + ary[0]) : i }
+  new_ary = []
+  puts new_ary << ary[0] << changed_part << ary[-1]
 end
 
 add_first_element_to_each([100, -4, 3, 7, -90, 42, 78, 1, 22, 6, 7, 2452, 156])
 
 def modify_hash(hashy)
-  puts hashy.map { |key, value| [key.to_sym, value.to_i == 0 ? nil : value.to_i] }.to_h
+  var = hashy.map do |key, value|
+    [key = key.to_sym,
+     val = if value == "0"
+           value.to_i
+         elsif value.to_i == 0
+           nil
+         else
+           value.to_i
+         end]
+  end.to_h
+  puts var
 end
 
-modify_hash({'first_key' => "59", 'second_key' => 'second_value', 'third_key' => 'third_value'})
+modify_hash({'first_key' => "59", 'second_key' => '0', 'third_key' => 'third_value'})
 
 def remove_pairs_started_with_s(hashy)
   puts hashy.delete_if { |key| key.to_s.start_with?('s')}
