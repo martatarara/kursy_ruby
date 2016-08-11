@@ -123,7 +123,37 @@ class TestRegistration < Test::Unit::TestCase
     expected_text = 'Support'
     actual_text = @driver.find_element(:css, ".tracker-3 .tracker").text
     assert_include(actual_text, expected_text)
+  end
 
+  def test_create_project_with_random_bug
+    register_user
+    create_project
+
+    chance = rand(9)
+    if chance.even?
+      create_bug
+    end
+
+    puts chance
+
+    @driver.find_element(:css, ".issues").click
+
+    @wait.until { @driver.find_element(:id, "content").displayed? }
+    if @driver.find_elements(:css, ".id>a").empty?
+      create_bug
+      @driver.find_element(:css, ".issues").click
+    end
+
+    add_self_to_watchers
+    @driver.find_element(:css, ".issues").click
+    @wait.until { @driver.find_element(:css, ".id>a").displayed? }
+    bug_link = @driver.find_element(:css, ".id>a")
+    assert(bug_link.displayed?)
+
+    @driver.find_element(:css, ".id>a").click
+    @wait.until { @driver.find_element(:xpath, ".//*[@id='content']/div[1]/a[@data-method='delete']").displayed? }
+    unwatch_star = @driver.find_element(:xpath, ".//*[@id='content']/div[1]/a[@data-method='delete']")
+    assert(unwatch_star.displayed?)
   end
 
   def teardown

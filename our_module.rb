@@ -119,4 +119,11 @@ module OurModule
     @driver.find_element(:id, 'issue_subject').send_keys @issue_subject
     @driver.find_element(:name, 'commit').click
   end
+
+  def add_self_to_watchers
+    @wait.until { @driver.find_element(:css, ".id>a").displayed? }
+    @driver.find_element(:css, ".id>a").click
+    @wait.until { @driver.find_element(:xpath, ".//*[@id='content']/div[1]/a[@data-method='post']").displayed?}
+    @driver.find_element(:xpath, ".//*[@id='content']/div[1]/a[@data-method='post']").click
+  end
 end
